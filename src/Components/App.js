@@ -2,25 +2,18 @@ import React ,{useState} from "react";
 import 'bootstrap/dist/css/bootstrap.css'
 //import Components
 import Header from './Layouts/Header';
+import AddTodo from "./Layouts/AddTodo";
 
 function App(){
-    const [formInput,setFormInput]=useState({formInput:''})
     const [todos,setTodos]=useState({todos : []})
-
-    const formHandler=(event)=>{
-        event.preventDefault();
+    const addTodo=(text)=>{
         setTodos(prevState=>{
             return{todos:[
                 ...prevState.todos,
-                {key:Date.now(),done:false,title:formInput}
+                {key:Date.now(),done:false,title:text}
             ]}
         })
-        setFormInput({formInput:''})
     }
-    const inputHandler=(event)=>{
-        setFormInput(event.target.value)
-    }
-
     return(
         <div className="App">
           <Header/>  
@@ -29,12 +22,7 @@ function App(){
             <div className="container d-flex flex-column align-items-center">
                 <h1 className="jumbotron-heading">Welcome!</h1>
                 <p className="lead text-muted">To get started, add some items to your list:</p>
-                <form className="form-inline" onSubmit={formHandler}>
-                  <div className="form-group">
-                    <input type="text" className="form-control mx-sm-3" placeholder="I want to do ..." onChange={inputHandler} value={formInput.formInput}/>
-                    <button type="submit" className="btn btn-primary">add</button>
-                  </div>
-                </form>
+                <AddTodo add={(text)=>addTodo(text)}/>
             </div>
           </section>
           <div className="todosList">
