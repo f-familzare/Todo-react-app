@@ -1,64 +1,81 @@
-import React from "react";
+import React ,{useState} from "react";
 import 'bootstrap/dist/css/bootstrap.css'
 //import Components
 import Header from './Layouts/Header';
 
 function App(){
+    const [formInput,setFormInput]=useState({formInput:''})
+    const [todos,setTodos]=useState({todos : []})
+
+    const formHandler=(event)=>{
+        event.preventDefault();
+        setTodos(prevState=>{
+            return{todos:[
+                ...prevState.todos,
+                {key:Date.now(),done:false,title:formInput}
+            ]}
+        })
+        setFormInput({formInput:''})
+    }
+    const inputHandler=(event)=>{
+        setFormInput(event.target.value)
+    }
+
     return(
-        <div class="App">
+        <div className="App">
           <Header/>  
         <main>
-          <section class="jumbotron">
-            <div class="container d-flex flex-column align-items-center">
-                <h1 class="jumbotron-heading">Welcome!</h1>
-                <p class="lead text-muted">To get started, add some items to your list:</p>
-                <div class="form-inline">
-                  <div class="form-group">
-                    <input type="text" class="form-control mx-sm-3" placeholder="i want to do ..."/>
-                    <button class="btn btn-primary">add</button>
+          <section className="jumbotron">
+            <div className="container d-flex flex-column align-items-center">
+                <h1 className="jumbotron-heading">Welcome!</h1>
+                <p className="lead text-muted">To get started, add some items to your list:</p>
+                <form className="form-inline" onSubmit={formHandler}>
+                  <div className="form-group">
+                    <input type="text" className="form-control mx-sm-3" placeholder="I want to do ..." onChange={inputHandler} value={formInput.formInput}/>
+                    <button type="submit" className="btn btn-primary">add</button>
                   </div>
-                </div>
+                </form>
             </div>
           </section>
-          <div class="todosList">
-                <div class="container">
-                    <div class="d-flex flex-column align-items-center ">
-                        <nav class="col-6 mb-3">
-                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                <a class="nav-item nav-link active font-weight-bold" id="nav-home-tab">undone <span class="badge badge-secondary">9</span></a>
-                                <a class="nav-item nav-link font-weight-bold" id="nav-profile-tab">done <span class="badge badge-success">9</span></a>
+          <div className="todosList">
+                <div className="container">
+                    <div className="d-flex flex-column align-items-center ">
+                        <nav className="col-6 mb-3">
+                            <div className="nav nav-tabs" id="nav-tab" role="tablist">
+                                <a className="nav-item nav-link active font-weight-bold" id="nav-home-tab">undone <span className="badge badge-secondary">9</span></a>
+                                <a className="nav-item nav-link font-weight-bold" id="nav-profile-tab">done <span className="badge badge-success">9</span></a>
                             </div>
                         </nav>
-                        <div class="col-6 mb-2">
-                            <div class="d-flex justify-content-between align-items-center border rounded p-3">
+                        <div className="col-6 mb-2">
+                            <div className="d-flex justify-content-between align-items-center border rounded p-3">
                                 <div>
-                                    hello roocket
+                                    hello world
                                 </div>
                                 <div>
-                                    <button type="button" class="btn btn-info btn-sm">edit</button>
-                                    <button type="button" class="btn btn-danger btn-sm ml-1">delete</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6 mb-2">
-                            <div class="d-flex justify-content-between align-items-center border rounded p-3">
-                                <div>
-                                    hello roocket
-                                </div>
-                                <div>
-                                    <button type="button" class="btn btn-info btn-sm">edit</button>
-                                    <button type="button" class="btn btn-danger btn-sm ml-1">delete</button>
+                                    <button type="button" className="btn btn-info btn-sm">edit</button>
+                                    <button type="button" className="btn btn-danger btn-sm ml-1">delete</button>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6 mb-2">
-                            <div class="d-flex justify-content-between align-items-center border rounded p-3">
+                        <div className="col-6 mb-2">
+                            <div className="d-flex justify-content-between align-items-center border rounded p-3">
                                 <div>
-                                    hello roocket
+                                    hello world
                                 </div>
                                 <div>
-                                    <button type="button" class="btn btn-info btn-sm">edit</button>
-                                    <button type="button" class="btn btn-danger btn-sm ml-1">delete</button>
+                                    <button type="button" className="btn btn-info btn-sm">edit</button>
+                                    <button type="button" className="btn btn-danger btn-sm ml-1">delete</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-6 mb-2">
+                            <div className="d-flex justify-content-between align-items-center border rounded p-3">
+                                <div>
+                                    hello world
+                                </div>
+                                <div>
+                                    <button type="button" className="btn btn-info btn-sm">edit</button>
+                                    <button type="button" className="btn btn-danger btn-sm ml-1">delete</button>
                                 </div>
                             </div>
                         </div>
