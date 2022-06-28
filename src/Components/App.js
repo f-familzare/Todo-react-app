@@ -2,7 +2,8 @@ import React ,{useState} from "react";
 import 'bootstrap/dist/css/bootstrap.css'
 //import Components
 import Header from './Layouts/Header';
-import AddTodo from "./Layouts/AddTodo";
+import AddTodo from "./AddTodo";
+import TodoList from "./TodoList";
 
 function App(){
     const [todos,setTodos]=useState({todos : []})
@@ -12,6 +13,36 @@ function App(){
                 ...prevState.todos,
                 {key:Date.now(),done:false,title:text}
             ]}
+        })
+    }
+    const editTodo=(key,text)=>{
+        let task=todos.todos.find(item=>item.key===key);
+        task.title=text;
+        let newTodos=todos.todos.filter(item=>item.key!==key)
+        setTodos({
+            todos:[
+                ...newTodos,
+                task
+            ]
+        })
+    }
+    const deleteTodo = (key)=>{
+        setTodos(prevState=>{
+            return{
+                todos:prevState.todos.filter(item=>item.key!==key)
+            }
+        })
+    }
+
+    const changeTodoStatus=(key)=>{
+        let task=todos.todos.find(item=>item.key===key);
+        task.done=!task.done;
+        let newTodos=todos.todos.filter(item=>item.key!==key)
+        setTodos({
+            todos:[
+                ...newTodos,
+                task
+            ]
         })
     }
     return(
@@ -28,45 +59,7 @@ function App(){
           <div className="todosList">
                 <div className="container">
                     <div className="d-flex flex-column align-items-center ">
-                        <nav className="col-6 mb-3">
-                            <div className="nav nav-tabs" id="nav-tab" role="tablist">
-                                <a className="nav-item nav-link active font-weight-bold" id="nav-home-tab">undone <span className="badge badge-secondary">9</span></a>
-                                <a className="nav-item nav-link font-weight-bold" id="nav-profile-tab">done <span className="badge badge-success">9</span></a>
-                            </div>
-                        </nav>
-                        <div className="col-6 mb-2">
-                            <div className="d-flex justify-content-between align-items-center border rounded p-3">
-                                <div>
-                                    hello world
-                                </div>
-                                <div>
-                                    <button type="button" className="btn btn-info btn-sm">edit</button>
-                                    <button type="button" className="btn btn-danger btn-sm ml-1">delete</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-6 mb-2">
-                            <div className="d-flex justify-content-between align-items-center border rounded p-3">
-                                <div>
-                                    hello world
-                                </div>
-                                <div>
-                                    <button type="button" className="btn btn-info btn-sm">edit</button>
-                                    <button type="button" className="btn btn-danger btn-sm ml-1">delete</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-6 mb-2">
-                            <div className="d-flex justify-content-between align-items-center border rounded p-3">
-                                <div>
-                                    hello world
-                                </div>
-                                <div>
-                                    <button type="button" className="btn btn-info btn-sm">edit</button>
-                                    <button type="button" className="btn btn-danger btn-sm ml-1">delete</button>
-                                </div>
-                            </div>
-                        </div>
+                        <TodoList todos={todos} deleteTodo={(key)=>deleteTodo(key)} changeTodoStatus={(key)=>changeTodoStatus(key)} editTodo={(key,text)=>editTodo(key,text)} />
                     </div>
               
                 </div>

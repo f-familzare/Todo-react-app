@@ -1,7 +1,7 @@
 import React ,{useState} from "react";
 
 function AddTodo({add}){
-
+    
     const [formInput,setFormInput]=useState({formInput:''})
     
     const formHandler=(event)=>{
