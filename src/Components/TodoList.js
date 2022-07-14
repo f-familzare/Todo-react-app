@@ -1,8 +1,10 @@
-import React,{useState} from "react";
+import React,{useContext, useState} from "react";
+import TodoContext from "../Contexts/TodoContext";
 import Todo from "./Todo";
 
 function TodoList({todos,deleteTodo,changeTodoStatus,editTodo}) {
     const [status,setStatus]=useState(false);
+    // const Context=useContext(TodoContext)
     let tasks=todos.todos.filter(task=>task.done === status)
     return(
         <>

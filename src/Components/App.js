@@ -4,9 +4,11 @@ import 'bootstrap/dist/css/bootstrap.css'
 import Header from './Layouts/Header';
 import AddTodo from "./AddTodo";
 import TodoList from "./TodoList";
-
+import TodoContext from "../Contexts/TodoContext";
+ 
 function App(){
     const [todos,setTodos]=useState({todos : []})
+    console.log(todos)
     const addTodo=(text)=>{
         setTodos(prevState=>{
             return{todos:[
@@ -33,7 +35,7 @@ function App(){
             }
         })
     }
-
+ 
     const changeTodoStatus=(key)=>{
         let task=todos.todos.find(item=>item.key===key);
         task.done=!task.done;
@@ -46,26 +48,37 @@ function App(){
         })
     }
     return(
-        <div className="App">
-          <Header/>  
-        <main>
-          <section className="jumbotron">
-            <div className="container d-flex flex-column align-items-center">
-                <h1 className="jumbotron-heading">Welcome!</h1>
-                <p className="lead text-muted">To get started, add some items to your list:</p>
-                <AddTodo add={(text)=>addTodo(text)}/>
-            </div>
-          </section>
-          <div className="todosList">
-                <div className="container">
-                    <div className="d-flex flex-column align-items-center ">
-                        <TodoList todos={todos} deleteTodo={(key)=>deleteTodo(key)} changeTodoStatus={(key)=>changeTodoStatus(key)} editTodo={(key,text)=>editTodo(key,text)} />
+        <>
+        <TodoContext.Provider value={{
+            todos:todos,
+            add:(text)=>addTodo(text),
+            deleteTodo:(key)=>deleteTodo(key),
+            changeTodoStatus:(key)=>changeTodoStatus(key),
+            editTodo:(key,text)=>editTodo(key,text) 
+        }}>
+            <div className="App">
+                <Header/>  
+                <main>
+                <section className="jumbotron">
+                    <div className="container d-flex flex-column align-items-center">
+                        <h1 className="jumbotron-heading">Welcome!</h1>
+                        <p className="lead text-muted">To get started, add some items to your list:</p>
+                        <AddTodo/>
                     </div>
-              
+                </section>
+                <div className="todosList">
+                        <div className="container">
+                            <div className="d-flex flex-column align-items-center ">
+                                <TodoList todos={todos}/>
+                            </div>
+ 
+                        </div>
                 </div>
-          </div>
-        </main>
-    </div>
+                </main>
+            </div>
+        </TodoContext.Provider>
+        </>
+ 
     )
 }
 export default App;
