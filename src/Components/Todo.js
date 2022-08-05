@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import TodoContext from "../Contexts/TodoContext";
 import EditTodo from "./EditTodo";
 
-function Todo({todo,editTodo,deleteTodo,changeTodoStatus}){
+function Todo({todo}){
+    const todoContext=useContext(TodoContext)
+    const {editTodo,deleteTodo,changeTodoStatus}=todoContext
     const [edit,setEdit]=useState(false)
     let EditHandler=(text) => {
         editTodo(todo.key,text)

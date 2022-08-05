@@ -1,9 +1,10 @@
-import React ,{useState} from "react";
+import React ,{useState , useContext} from "react";
+import TodoContext from "../Contexts/TodoContext";
 
-function AddTodo({add}){
-    
+function AddTodo(){
+    const todoContext=useContext(TodoContext)
+    const {add}=todoContext
     const [formInput,setFormInput]=useState({formInput:''})
-    
     const formHandler=(event)=>{
         event.preventDefault();
         add(formInput)

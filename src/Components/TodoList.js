@@ -1,7 +1,12 @@
-import React,{useState} from "react";
+import React,{useContext, useState} from "react";
 import Todo from "./Todo";
 
-function TodoList({todos,deleteTodo,changeTodoStatus,editTodo}) {
+//import contexts
+import TodoContext from "../Contexts/TodoContext";
+
+function TodoList() {
+    let todoContext=useContext(TodoContext)
+    const {todos}=todoContext
     const [status,setStatus]=useState(false);
     let tasks=todos.todos.filter(task=>task.done === status)
     return(
@@ -16,7 +21,7 @@ function TodoList({todos,deleteTodo,changeTodoStatus,editTodo}) {
             {
                 tasks.length===0
                 ? <p className="text-info">There isn't any Task</p>
-                : tasks.map(item=><Todo key={item.key} todo={item} deleteTodo={deleteTodo} changeTodoStatus={changeTodoStatus} editTodo={editTodo}></Todo>)
+                : tasks.filter(item=>item.done==status).map(item=><Todo key={item.key} todo={item}></Todo>)
             }
         </>
     )
