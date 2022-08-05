@@ -6,6 +6,7 @@ function TodoList({todos,deleteTodo,changeTodoStatus,editTodo}) {
     const [status,setStatus]=useState(false);
     // const Context=useContext(TodoContext)
     let tasks=todos.todos.filter(task=>task.done === status)
+    console.log(todos,'+++')
     return(
         <>
                 <nav className="col-6 mb-3">

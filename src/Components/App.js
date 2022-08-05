@@ -8,7 +8,6 @@ import TodoContext from "../Contexts/TodoContext";
  
 function App(){
     const [todos,setTodos]=useState({todos : []})
-    console.log(todos)
     const addTodo=(text)=>{
         setTodos(prevState=>{
             return{todos:[
@@ -47,10 +46,12 @@ function App(){
             ]
         })
     }
+    console.log(todos)
+
     return(
         <>
         <TodoContext.Provider value={{
-            todos:todos,
+            todos:todos.todos,
             add:(text)=>addTodo(text),
             deleteTodo:(key)=>deleteTodo(key),
             changeTodoStatus:(key)=>changeTodoStatus(key),
@@ -70,6 +71,7 @@ function App(){
                         <div className="container">
                             <div className="d-flex flex-column align-items-center ">
                                 <TodoList todos={todos}/>
+                                {/* <p>hi</p> */}
                             </div>
  
                         </div>
