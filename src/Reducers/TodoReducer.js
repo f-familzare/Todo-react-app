@@ -1,25 +1,22 @@
 function TodoReducer(state,action) {
-    console.log(action,'actionnnnnnnnnnnnnnnnnn')
     switch (action.type) {
         case "add":
-            return addTodo; 
+            return addTodo(state,action); 
             break;
         case "editTodo":
-            return editTodo;
+            return editTodo(state,action);
         case "deleteTodo":
-            return deleteTodo;
+            return deleteTodo(state,action);
         case "changeTodoStatus":
-            return changeTodoStatus;
+            return changeTodoStatus(state,action);
         default:
             return state
             break;
     }
 }
 
-const addTodo = (state , action) => {
-    console.log(action,'pppppppppppppppp')
+function addTodo (state , action){
     let { text } = action.payload;
-    console.log(text,'00000000')
     return {
         ...state,
         todos : [
@@ -29,7 +26,7 @@ const addTodo = (state , action) => {
     }
 }
 
-const editTodo=(state,action)=>{
+function editTodo (state,action){
     let {key , text}=action.payload
     let task=state.todos.find(item=>item.key===key);
     task.title=text;
@@ -43,7 +40,7 @@ const editTodo=(state,action)=>{
     })
 }
 
-const deleteTodo = (state,action)=>{
+function deleteTodo (state,action){
         let {key}=action.payload
         return{
             ...state,
@@ -51,18 +48,20 @@ const deleteTodo = (state,action)=>{
         }
 }
 
-const changeTodoStatus=(state,action)=>{
-    let {key}=action.payload
-    let task=state.todos.find(item=>item.key===key);
-    task.done=!task.done;
-    let newTodos=state.todos.filter(item=>item.key!==key)
-    return({
+function changeTodoStatus (state,action){
+    let { key } = action.payload
+    let task = state.todos.find(item => item.key === key)
+    console.log(task.done)
+    task.done=!task.done
+    let newTodos = state.todos.filter(item => item.key !== key)
+
+    return {
         ...state,
-        todos:[
+        todos : [
             ...newTodos,
             task
         ]
-    })
+    } 
 }
 
 export default TodoReducer;

@@ -7,11 +7,8 @@ function AddTodo(){
     const [formInput,setFormInput]=useState({formInput:''})
     const formHandler=(event)=>{
         event.preventDefault();
-        // add(formInput)
-        console.log(formInput,'contexttttttttttttttttttt')
         todoContext.dispatch({type:'add',payload:{text:formInput}})
         setFormInput({formInput:''})
-        // console.log(formInput,'input')
     }
     const inputHandler=(event)=>{
         setFormInput(event.target.value)

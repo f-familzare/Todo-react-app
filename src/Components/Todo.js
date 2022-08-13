@@ -4,16 +4,21 @@ import EditTodo from "./EditTodo";
 
 function Todo({todo}){
     const todoContext=useContext(TodoContext)
-    const {editTodo,deleteTodo,changeTodoStatus}=todoContext
+    // const {editTodo,deleteTodo,changeTodoStatus}=todoContext
     const [edit,setEdit]=useState(false)
 
     let EditHandler=(text) => {
-        editTodo.dispatch({type:"editTodo" , paload:{key:todo.key,text}})
+        todoContext.dispatch({type:"editTodo" , payload:{key:todo.key,text:text}})
         setEdit(false)
     }
 
     let DeleteHandler=(e)=>{
-        deleteTodo.dispatch({type:"deleteTodo",paload:{key:todo.key}})
+        todoContext.dispatch({type:"deleteTodo",payload:{key:todo.key}})
+    }
+
+    let StatusHandler=(e)=>{
+        console.log(todoContext.dispatch({type:"changeTodoStatus",payload:{key:todo.key}}))
+        todoContext.dispatch({type:"changeTodoStatus",payload:{key:todo.key}})
     }
     return(
         <>
@@ -25,7 +30,7 @@ function Todo({todo}){
                     {todo.title}
                     </div>
                     <div>
-                        <button type="button" className={`btn btn-sm ${!todo.done?'btn-dark':'btn-warning'}`} onClick={()=>changeTodoStatus.dispatch({type:"changeTodoStatus",payload:{key:todo.key}})}>{!todo.done?'Done':'UnDone'}</button>
+                        <button type="button" className={`btn btn-sm ${!todo.done?'btn-dark':'btn-warning'}`} onClick={StatusHandler}>{!todo.done?'Done':'UnDone'}</button>
                         <button type="button" className="btn btn-info btn-sm ml-1" onClick={()=>setEdit(true)}>Edit</button>
                         <button type="button" className="btn btn-danger btn-sm ml-1" onClick={DeleteHandler}>Delete</button>
                     </div>
