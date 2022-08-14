@@ -17,7 +17,6 @@ function Todo({todo}){
     }
 
     let StatusHandler=(e)=>{
-        console.log(todoContext.dispatch({type:"changeTodoStatus",payload:{key:todo.key}}))
         todoContext.dispatch({type:"changeTodoStatus",payload:{key:todo.key}})
     }
     return(

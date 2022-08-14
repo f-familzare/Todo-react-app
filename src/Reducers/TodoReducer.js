@@ -51,7 +51,6 @@ function deleteTodo (state,action){
 function changeTodoStatus (state,action){
     let { key } = action.payload
     let task = state.todos.find(item => item.key === key)
-    console.log(task.done)
     task.done=!task.done
     let newTodos = state.todos.filter(item => item.key !== key)
 

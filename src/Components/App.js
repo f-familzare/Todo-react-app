@@ -16,7 +16,6 @@ function App(){
         todos : [],
         authenticated:false
     })
-    console.log(state.todos)
     return(
         <TodoContext.Provider value={{
             todos: state.todos,

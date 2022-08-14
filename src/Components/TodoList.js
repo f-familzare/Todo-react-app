@@ -10,8 +10,6 @@ function TodoList() {
     let todoContext=useContext(TodoContext)
     let {todos}=todoContext
     let tasks=todos.filter(task=>task.done === status)
-    console.log(todoContext,'aaa')
-    console.log(todos,'bbbbb')
 
     return(
         <>
