@@ -9,6 +9,10 @@ function TodoReducer(state,action) {
             return deleteTodo(state,action);
         case "changeTodoStatus":
             return changeTodoStatus(state,action);
+        case "login":
+            return login(state,action);
+        case "logout":
+            return logout(state,action)
         default:
             return state
             break;
@@ -61,6 +65,20 @@ function changeTodoStatus (state,action){
             task
         ]
     } 
+}
+
+function login(state,action) {
+    return {
+        ...state,
+        authenticated:true
+    }
+}
+
+function logout(state,action) {
+    return {
+        ...state,
+        authenticated:false
+    }
 }
 
 export default TodoReducer;
