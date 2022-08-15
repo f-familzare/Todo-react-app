@@ -20,12 +20,14 @@ function TodoReducer(state,action) {
 }
 
 function addTodo (state , action){
-    let { text } = action.payload;
+    // let { text } = action.payload;
+    let { todo } = action.payload;
     return {
         ...state,
         todos : [
             ...state.todos,
-            { key : Date.now() , done : false , title:text }
+            todo
+            // { key : Date.now() , done : false , title:text }
         ]
     }
 }

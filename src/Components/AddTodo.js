@@ -1,4 +1,5 @@
 import React ,{useState , useContext} from "react";
+import axios from "axios";
 import AuthContext from "../Contexts/AuthContext";
 import TodoContext from "../Contexts/TodoContext";
 
@@ -10,7 +11,17 @@ function AddTodo(){
     const [formInput,setFormInput]=useState({formInput:''})
     const formHandler=(event)=>{
         event.preventDefault();
-        todoContext.dispatch({type:'add',payload:{text:formInput}})
+        // دیتای ایجکس را اینجا ارسال می کنیم در reducer
+
+        let todo = {done:false,title:formInput}
+        axios.post('https://todo-react-app-3dd32-default-rtdb.firebaseio.com//todos.json', todo)
+          .then((response) => {
+            todoContext.dispatch({type:'add',payload:{todo:{...todo,key:response.data.name}}})
+          })
+          .catch((error)=>{
+            console.log(error);
+          });
+        // todoContext.dispatch({type:'add',payload:{text:formInput}})
         setFormInput({formInput:''})
     }
     const inputHandler=(event)=>{
