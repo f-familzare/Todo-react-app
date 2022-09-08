@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import TodoContext from "../Contexts/TodoContext";
 import EditTodo from "./EditTodo";
+import axios from "axios";
 
 function Todo({todo}){
     const todoContext=useContext(TodoContext)
@@ -13,7 +14,14 @@ function Todo({todo}){
     }
 
     let DeleteHandler=(e)=>{
-        todoContext.dispatch({type:"deleteTodo",payload:{key:todo.key}})
+        axios.delete(`https://todo-react-app-3dd32-default-rtdb.firebaseio.com/todos/${todo.key}.json`)
+            .then((response)=>{
+                console.log(response.data)
+                todoContext.dispatch({type:"deleteTodo",payload:{key:todo.key}})
+            }
+        ).catch((error)=>{
+            console.log(error);
+          });
     }
 
     let StatusHandler=(e)=>{
