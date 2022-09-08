@@ -1,5 +1,6 @@
-import React ,{useReducer} from "react";
-import 'bootstrap/dist/css/bootstrap.css'
+import React ,{useEffect, useReducer} from "react";
+import 'bootstrap/dist/css/bootstrap.css';
+import axios from "axios";
 //import Components
 import Header from './Layouts/Header';
 import AddTodo from "./AddTodo";
@@ -18,6 +19,29 @@ function App(){
         todos : [],
         authenticated:false
     })
+
+    const jsonHandler = (data)=>{
+        const todos = Object.entries(data).map(([key,value])=>{
+            return{
+                ...value,
+                key
+            }
+        })
+        dispatch({type:"initTodos",payload:{todos}})
+    }
+
+    useEffect(()=>{
+        axios.get('https://todo-react-app-3dd32-default-rtdb.firebaseio.com/todos.json')
+        .then(response=> {
+          // handle success
+          console.log(jsonHandler(response.data));
+        })
+        .catch( (error)=>{
+          // handle error
+          console.log(error);
+        })
+    },[])
+
     return(
         <AuthContext.Provider value={{ 
             authenticated : state.authenticated,

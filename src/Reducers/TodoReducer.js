@@ -1,5 +1,7 @@
 function TodoReducer(state,action) {
     switch (action.type) {
+        case "initTodos":
+            return initTodos(state,action)
         case "add":
             return addTodo(state,action); 
             break;
@@ -13,9 +15,19 @@ function TodoReducer(state,action) {
             return login(state,action);
         case "logout":
             return logout(state,action)
+
         default:
             return state
             break;
+    }
+}
+
+
+function initTodos(state,action) {
+    let {todos}=action.payload;
+    return {
+        ...state,
+        todos
     }
 }
 

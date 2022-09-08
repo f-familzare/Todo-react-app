@@ -14,7 +14,7 @@ function AddTodo(){
         // دیتای ایجکس را اینجا ارسال می کنیم در reducer
 
         let todo = {done:false,title:formInput}
-        axios.post('https://todo-react-app-3dd32-default-rtdb.firebaseio.com//todos.json', todo)
+        axios.post('https://todo-react-app-3dd32-default-rtdb.firebaseio.com/todos.json', todo)
           .then((response) => {
             todoContext.dispatch({type:'add',payload:{todo:{...todo,key:response.data.name}}})
           })
