@@ -27,7 +27,10 @@ function Todo({todo}){
     }
 
     let StatusHandler=(e)=>{
-        todoContext.dispatch({type:"changeTodoStatus",payload:{key:todo.key}})
+        axios.patch(`https://todo-react-app-3dd32-default-rtdb.firebaseio.com/todos/${todo.key}.json`,{done:!todo.done,title:todo.title})
+        .then((response)=>{todoContext.dispatch({type:"changeTodoStatus",payload:{key:todo.key}})}
+        ).catch((error)=>{console.log(error)});
+        
     }
     return(
         <>
