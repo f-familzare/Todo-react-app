@@ -9,7 +9,9 @@ function Todo({todo}){
     const [edit,setEdit]=useState(false)
 
     let EditHandler=(text) => {
-        todoContext.dispatch({type:"editTodo" , payload:{key:todo.key,text:text}})
+        axios.patch(`https://todo-react-app-3dd32-default-rtdb.firebaseio.com/todos/${todo.key}.json`,{done:todo.done,title:text})
+        .then((response)=>{todoContext.dispatch({type:"editTodo" , payload:{key:todo.key,title:text}})}
+        ).catch((error)=>{console.log(error)});
         setEdit(false)
     }
 
