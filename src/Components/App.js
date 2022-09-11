@@ -31,7 +31,7 @@ function App(){
     }
 
     useEffect(()=>{
-        axios.get('https://todo-react-app-3dd32-default-rtdb.firebaseio.com/todos.json')
+        axios.get('/todos.json')
         .then(response=> {
           // handle success
           console.log(jsonHandler(response.data));

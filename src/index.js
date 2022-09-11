@@ -2,6 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './Components/App';
 import reportWebVitals from './reportWebVitals';
+import * as axios from 'axios';
+axios.defaults.baseURL='https://todo-react-app-3dd32-default-rtdb.firebaseio.com';
+axios.default.timeout=5000;
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 // root.render(
@@ -10,7 +13,6 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 //   </React.StrictMode>
 // );
 root.render(
-
   <App />,
 
 document.getElementById('root')
