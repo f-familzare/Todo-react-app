@@ -1,6 +1,9 @@
-import React ,{useEffect, useReducer} from "react";
+import React ,{useEffect, useReducer, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.css';
 import axios from "axios";
+//import Images
+import Loader from "./../Images/Infinity-1s-200px.gif"
+
 //import Components
 import Header from './Layouts/Header';
 import AddTodo from "./AddTodo";
@@ -20,6 +23,8 @@ function App(){
         authenticated:false
     })
 
+    const [loading,setLoading]=useState(false);
+
     const jsonHandler = (data)=>{
         const todos = Object.entries(data).map(([key,value])=>{
             return{
@@ -27,10 +32,13 @@ function App(){
                 key
             }
         })
+        setLoading(false);
         dispatch({type:"initTodos",payload:{todos}})
     }
 
     useEffect(()=>{
+        setLoading(true)
+
         axios.get('/todos.json')
         .then(response=> {
           // handle success
@@ -41,7 +49,6 @@ function App(){
           console.log(error);
         })
     },[])
-
     return(
         <AuthContext.Provider value={{ 
             authenticated : state.authenticated,
@@ -69,7 +76,14 @@ function App(){
                         <div className="todosList">
                                 <div className="container">
                                     <div className="d-flex flex-column align-items-center ">
-                                        <TodoList/>
+                                        {
+                                        loading
+                                        ?<img
+                                            src={Loader}
+                                            alt="loading"
+                                        />
+                                        :<TodoList/>
+                                        }
                                     </div>
                             
                                 </div>
